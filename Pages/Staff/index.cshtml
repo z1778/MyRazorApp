@@ -4,4 +4,46 @@
     ViewData["Title"] = "Staff Directory";
 }
 
-<h1>Staff Directory Page</h1>
+<h1>Staff Directory</h1>
+<p>Browse our faculty and administration staff members.</p>
+
+@if (Model.StaffList.Count == 0)
+{
+    <p>No staff records found.</p>
+}
+else
+{
+    <p>Showing <strong>@Model.StaffList.Count</strong> staff @(Model.StaffList.Count == 1 ? "member" : "members").</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Office</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var staff in Model.StaffList)
+            {
+                <tr>
+                    <td><strong>@staff.Name</strong></td>
+                    <td>@staff.Department</td>
+                    <td>@staff.Role</td>
+                    <td>
+                        <a href="mailto:@staff.Email">@staff.Email</a>
+                    </td>
+                    <td>@staff.Office</td>
+                    <td>
+                        <span class="status-@(staff.Status.ToLower())">
+                            @staff.Status
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
